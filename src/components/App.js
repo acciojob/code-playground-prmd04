@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./../styles/App.css";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, Navigate } from "react-router-dom";
 import Login from "./Login";
 import PrivateRoute from "./PrivateRoute";
 import PlayGround from "./PlayGround";
@@ -10,10 +10,13 @@ const App = () => {
     "You are not authenticated, Please login first"
   );
   const [isAuthenticate, setIsAuthenticate] = useState(false);
+
   useEffect(() => {
-    isAuthenticate === true
-      ? setText("Logged in, Now you can enter Playground")
-      : setText("You are not authenticated, Please login first");
+    setText(
+      isAuthenticate
+        ? "Logged in, Now you can enter Playground"
+        : "You are not authenticated, Please login first"
+    );
   }, [isAuthenticate]);
 
   return (
@@ -24,14 +27,21 @@ const App = () => {
           <Link to="/playground">PlayGround</Link>
         </li>
         <li>
-          <Link to="/login">LogIn</Link>
+          <Link to="/login">Login</Link>
         </li>
       </ul>
+
       <Routes>
+        {/* Redirect root '/' to '/login' so Cypress sees correct URL */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
+        {/* Login page */}
         <Route
-          path="/"
+          path="/login"
           element={<Login setIsAuthenticate={setIsAuthenticate} />}
         />
+
+        {/* Playground private route */}
         <Route
           path="/playground"
           element={
@@ -39,11 +49,9 @@ const App = () => {
               <PlayGround />
             </PrivateRoute>
           }
-        ></Route>
-        <Route
-          path="/login"
-          element={<Login setIsAuthenticate={setIsAuthenticate} />}
-        ></Route>
+        />
+
+        {/* Fallback */}
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
     </div>
