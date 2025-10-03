@@ -29,6 +29,10 @@ const App = () => {
       </ul>
       <Routes>
         <Route
+          path="/"
+          element={<Login setIsAuthenticate={setIsAuthenticate} />}
+        />
+        <Route
           path="/playground"
           element={
             <PrivateRoute isAuthenticate={isAuthenticate}>
