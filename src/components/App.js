@@ -7,13 +7,13 @@ import PlayGround from "./PlayGround";
 
 const App = () => {
   const [text, setText] = useState(
-    "You are not authenticated, Please Log in first"
+    "You are not authenticated, Please Login first"
   );
   const [isAuthenticate, setIsAuthenticate] = useState(false);
   useEffect(() => {
     isAuthenticate === true
       ? setText("Logged in, Now you can enter Playground")
-      : setText("You are not authenticated, Please Log in first");
+      : setText("You are not authenticated, Please Login first");
   }, [isAuthenticate]);
 
   return (
