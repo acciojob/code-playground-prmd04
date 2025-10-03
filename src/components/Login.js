@@ -8,7 +8,7 @@ const Login = ({setIsAuthenticate}) => {
   }
   return (
     <div>
-    <h1>Log in</h1>
+    <h1>Login</h1>
       <button onClick={handleClick}>{buttonText}</button>
     </div>
   )
